@@ -3,10 +3,9 @@ package com.moodcare
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.moodcare.presentation.home_screen.MainScreen
+import com.moodcare.presentation.main_screen.MainScreen
 import com.moodcare.ui.theme.MoodCareTheme
 
 class MainActivity : ComponentActivity() {
