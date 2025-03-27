@@ -52,7 +52,7 @@ fun MainScreen(){
             )
         },
         bottomBar = {
-            BottomBar(items, pagerState, selectedItem)
+            BottomBar(items, onItemSelected = {newItem -> selectedItem = newItem})
         }
 
     ){
