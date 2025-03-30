@@ -1,4 +1,4 @@
-package com.moodcare.presentation.calendar_screen
+package com.moodcare.presentation.screens.main_screen.chat_page
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -8,11 +8,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun CalendarScreen(){
+fun ChatScreen(){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Blue)
+            .background(Color.Yellow)
     ){
 
     }

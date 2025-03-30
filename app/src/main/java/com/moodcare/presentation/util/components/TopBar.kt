@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -18,8 +19,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.moodcare.R
-import com.moodcare.ui.theme.onPrimary
-import com.moodcare.ui.theme.primary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,8 +29,7 @@ fun TopBar(
         modifier = Modifier
             .height(50.dp),
         colors = androidx.compose.material3.TopAppBarDefaults.topAppBarColors(
-            containerColor = primary(),
-            titleContentColor = onPrimary()
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         title = {
             Column(
@@ -41,7 +39,7 @@ fun TopBar(
             ) {
                 Text(
                     modifier = Modifier,
-                    color = onPrimary(),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     text = title
                 )
             }
@@ -57,12 +55,12 @@ fun TopBar(
                         .clip(RoundedCornerShape(10.dp))
                         .clickable { }
                         .padding(5.dp),
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     painter = painterResource
                         (
                         id = R.drawable.ic_menu
                     ),
-                    contentDescription = "menu",
-                    tint = onPrimary()
+                    contentDescription = "menu"
                 )
             }
         }

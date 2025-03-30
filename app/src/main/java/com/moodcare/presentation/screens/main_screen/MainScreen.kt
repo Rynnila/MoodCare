@@ -1,4 +1,4 @@
-package com.moodcare.presentation.main_screen
+package com.moodcare.presentation.screens.main_screen
 
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -14,8 +14,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.moodcare.presentation.util.components.BottomBar
-import com.moodcare.presentation.util.components.MainScreenPager
-import com.moodcare.presentation.util.components.NavItem
+import com.moodcare.presentation.util.components.pager.MainScreenPager
+import com.moodcare.presentation.util.components.pager.NavItem
 import com.moodcare.presentation.util.components.TopBar
 
 @RequiresApi(35)
@@ -52,7 +52,7 @@ fun MainScreen(){
             )
         },
         bottomBar = {
-            BottomBar(items, onItemSelected = {newItem -> selectedItem = newItem})
+            BottomBar(items, onItemSelected = {newItem -> selectedItem = newItem}, selectedItem)
         }
 
     ){
@@ -61,6 +61,7 @@ fun MainScreen(){
     }
 }
 
+@RequiresApi(35)
 @Composable
 @Preview
 fun MainScreenPreview(){
