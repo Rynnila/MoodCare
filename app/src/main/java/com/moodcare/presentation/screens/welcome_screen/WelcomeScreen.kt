@@ -86,8 +86,7 @@ fun WelcomeScreen(navController: NavController) {
                                     navController.navigate("MainScreen")
                                 }
                             }
-                        },
-                        enabled = pagerState.currentPage < items.size - 1
+                        }
                     )
                 }
             }
