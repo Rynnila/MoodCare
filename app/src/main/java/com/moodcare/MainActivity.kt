@@ -4,14 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.moodcare.presentation.screens.main_screen.MainScreen
 import com.moodcare.presentation.screens.welcome_screen.WelcomeScreen
 import com.moodcare.presentation.theme.MoodCareTheme
 
-@OptIn(ExperimentalFoundationApi::class)
 class MainActivity : ComponentActivity() {
     @RequiresApi(35)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,21 +22,30 @@ class MainActivity : ComponentActivity() {
         //enableEdgeToEdge()
         setContent {
             MoodCareTheme(theme = "light") {
-                WelcomeScreen()
-                }
-
+                Navigation()
+            }
         }
-
     }
-
 }
 
-
 @RequiresApi(35)
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    MoodCareTheme(theme = "light") {
-        MainScreen()
+fun Navigation(){
+    val NavController = rememberNavController()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        NavHost(
+            navController = NavController,
+            startDestination = "WelcomeScreen"
+        ){
+            composable("WelcomeScreen"){
+                WelcomeScreen(navController = NavController)
+            }
+            composable("MainScreen"){
+                MainScreen()
+            }
+        }
     }
 }

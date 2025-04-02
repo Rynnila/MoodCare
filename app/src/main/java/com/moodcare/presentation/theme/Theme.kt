@@ -21,7 +21,6 @@ private val lightTheme = lightColorScheme(
     error = Color.Red,
     onError = WHITE
 )
-
 private val classicTheme = lightColorScheme(
     primary = LIGHT_PURPLE,
     onPrimary = BLACK,

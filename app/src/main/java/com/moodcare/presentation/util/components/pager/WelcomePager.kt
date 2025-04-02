@@ -1,4 +1,6 @@
-@file:OptIn(ExperimentalFoundationApi::class, ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalFoundationApi::class,
+    ExperimentalFoundationApi::class
+)
 
 package com.moodcare.presentation.util.components.pager
 
@@ -44,6 +46,7 @@ fun WelcomePager(pagerState: PagerState, items: List<Triple<String, String, Int>
                         .background(color = MaterialTheme.colorScheme.background)
                         .size(500.dp)
                         .padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top,
                 ) {
                     Image(
