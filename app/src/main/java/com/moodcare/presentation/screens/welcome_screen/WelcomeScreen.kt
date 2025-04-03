@@ -83,7 +83,7 @@ fun WelcomeScreen(navController: NavController) {
                                     pagerState.animateScrollToPage(pagerState.currentPage + 1)
                                 }
                                 else{
-                                    navController.navigate("MainScreen")
+                                    navController.navigate("LoginScreen")
                                 }
                             }
                         }
