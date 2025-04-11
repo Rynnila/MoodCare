@@ -23,34 +23,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun LoginCard(navController: NavController) {
-    var nome by remember {
-        mutableStateOf("")
-    }
-    var Email by remember {
-        mutableStateOf("")
-    }
-    var Password by remember {
-        mutableStateOf("")
-    }
-    var CofirmedPassword by remember {
-        mutableStateOf("")
-    }
-    var selectedIndex by remember {
-        mutableIntStateOf(0)
-    }
-    val options = listOf("Login", "Registrar")
-    var expanded by remember {
-        mutableStateOf(false)
-    }
+    val context = LocalContext.current
+
+    var nome by remember { mutableStateOf("") }
+    var Email by remember { mutableStateOf("") }
+    var Password by remember { mutableStateOf("") }
+    var CofirmedPassword by remember { mutableStateOf("") }
+    var selectedIndex by remember { mutableIntStateOf(0) }
+    val options = listOf("Entrar", "Registrar")
+    var expanded by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -68,10 +58,9 @@ fun LoginCard(navController: NavController) {
                         )
                     ),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
-            ){
+            ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
                 ) {
                     SingleChoiceSegmentedButton(
@@ -79,107 +68,155 @@ fun LoginCard(navController: NavController) {
                         options = options,
                         onOptionSelected = {
                             selectedIndex = it
-                            if(selectedIndex == 1){
-                                expanded = true
-                            }else{
-                                expanded = false
+                            expanded = selectedIndex == 1
+                        }
+                    )
+                }
+
+                if (expanded) {
+                    OutlinedTextField(
+                        value = nome,
+                        onValueChange = { nome = it },
+                        label = { Text("Nome completo") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+
+                OutlinedTextField(
+                    label = { Text("Email") },
+                    value = Email,
+                    onValueChange = { Email = it },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                OutlinedTextField(
+                    label = { Text("Senha") },
+                    value = Password,
+                    onValueChange = { Password = it },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                if (expanded) {
+                    OutlinedTextField(
+                        value = CofirmedPassword,
+                        onValueChange = { CofirmedPassword = it },
+                        label = { Text("Confirmar Senha") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    MyButtom(
+                        text = if (selectedIndex == 0) "Entrar" else "Registrar",
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = {
+                            val auth = FirebaseAuth.getInstance()
+                            val emailRegex = Regex("^[A-Za-z](.*)([@])(.+)(\\.)(.+)")
+
+                            when {
+                                Email.isBlank() || Password.isBlank() -> {
+                                    Toast.makeText(
+                                        context,
+                                        "Email e senha não podem estar vazios.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+
+                                !emailRegex.matches(Email) -> {
+                                    Toast.makeText(
+                                        context,
+                                        "Formato de email inválido.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+
+                                selectedIndex == 0 -> {
+                                    // Login
+                                    auth.signInWithEmailAndPassword(Email, Password)
+                                        .addOnCompleteListener { task ->
+                                            if (task.isSuccessful) {
+                                                Toast.makeText(
+                                                    context,
+                                                    "Login realizado com sucesso!",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                                navController.navigate("MainScreen")
+                                            } else {
+                                                val errorCode = task.exception?.message?.lowercase() ?: ""
+                                                val errorMessage = when {
+                                                    "password is invalid" in errorCode -> "Senha incorreta. Tente novamente."
+                                                    "no user record" in errorCode -> "E-mail não cadastrado."
+                                                    "too many requests" in errorCode -> "Muitas tentativas. Tente novamente mais tarde."
+                                                    else -> "Erro ao fazer login. Verifique os dados e tente novamente."
+                                                }
+
+                                                Toast.makeText(
+                                                    context,
+                                                    errorMessage,
+                                                    Toast.LENGTH_LONG
+                                                ).show()
+                                            }
+                                        }
+                                }
+
+                                selectedIndex == 1 -> {
+                                    // Registrar
+                                    when {
+                                        Password.length < 6 -> {
+                                            Toast.makeText(
+                                                context,
+                                                "A senha deve conter pelo menos 6 caracteres.",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+
+                                        Password != CofirmedPassword -> {
+                                            Toast.makeText(
+                                                context,
+                                                "As senhas não coincidem.",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+
+                                        else -> {
+                                            auth.createUserWithEmailAndPassword(Email, Password)
+                                                .addOnCompleteListener { task ->
+                                                    if (task.isSuccessful) {
+                                                        Toast.makeText(
+                                                            context,
+                                                            "Cadastro realizado com sucesso!",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                        navController.navigate("MainScreen")
+                                                    } else {
+                                                        val errorCode = task.exception?.message?.lowercase() ?: ""
+                                                        val errorMessage = when {
+                                                            "password is invalid" in errorCode -> "Senha inválida. Tente novamente."
+                                                            "email address is already in use" in errorCode -> "Este e-mail já está em uso."
+                                                            else -> "Erro ao registrar. Tente novamente."
+                                                        }
+
+                                                        Toast.makeText(
+                                                            context,
+                                                            errorMessage,
+                                                            Toast.LENGTH_LONG
+                                                        ).show()
+                                                    }
+                                                }
+                                        }
+                                    }
+                                }
                             }
                         }
                     )
                 }
-                if(expanded){
-                    OutlinedTextField(
-                        value = nome,
-                        onValueChange = {
-                            nome = it
-                        },
-                        label = {
-                            Text(
-                                text = "Nome completo"
-                            )
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    )
-                }
-                OutlinedTextField(
-                    label = {
-                        Text(
-                            text = "Email"
-                        )
-                    },
-                    value = Email,
-                    onValueChange = {
-                        Email = it
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
-
-                OutlinedTextField(
-                    label = {
-                        Text(
-                            text = "Senha"
-                        )
-                    },
-                    value = Password,
-                    onValueChange = {
-                        Password = it
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
-                if(expanded){
-                    OutlinedTextField(
-                        value = CofirmedPassword,
-                        onValueChange = {
-                            CofirmedPassword = it
-                        },
-                        label = {
-                            Text(
-                                text = "Confirmar Senha"
-                            )
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    MyButtom(
-                        text = "Login",
-                        modifier = Modifier,
-                        onClick = {
-                            val auth = FirebaseAuth.getInstance()
-                            auth.signInWithEmailAndPassword(Email, Password)
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        navController.navigate("MainScreen")
-                                    } else {
-                                        // Aqui você pode usar um estado pra exibir a mensagem de erro
-                                        // Por exemplo:
-                                        val errorMessage = task.exception?.message ?: "Falha no login"
-                                        println("Erro ao fazer login: $errorMessage") // ou use outro estado para exibir
-                                    }
-                                }
-
-
-
-//                            if(Email == "admin" && Password == "admin") {
-//                                navController.navigate("MainScreen")
-//                            }
-                        }
-                    )
-                }
             }
-
         }
     )
 }
-
 
 @Preview
 @Composable
