@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "620607906667",
+    "project_id": "moodcare-341e0",
+    "storage_bucket": "moodcare-341e0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620607906667:android:b38ca9c872934c7744e22e",
+        "android_client_info": {
+          "package_name": "com.moodcare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAonGG2nffA6wUN9UbP0Uy3F9tho6FZfuc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
