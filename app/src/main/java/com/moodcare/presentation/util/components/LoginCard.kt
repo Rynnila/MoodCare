@@ -1,5 +1,6 @@
 package com.moodcare.presentation.util.components
 
+import android.widget.Toast
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -26,6 +27,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun LoginCard(navController: NavController) {
@@ -48,6 +51,7 @@ fun LoginCard(navController: NavController) {
     var expanded by remember {
         mutableStateOf(false)
     }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -149,9 +153,24 @@ fun LoginCard(navController: NavController) {
                         text = "Login",
                         modifier = Modifier,
                         onClick = {
-                            if(Email == "admin" && Password == "admin") {
-                                navController.navigate("MainScreen")
-                            }
+                            val auth = FirebaseAuth.getInstance()
+                            auth.signInWithEmailAndPassword(Email, Password)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        navController.navigate("MainScreen")
+                                    } else {
+                                        // Aqui você pode usar um estado pra exibir a mensagem de erro
+                                        // Por exemplo:
+                                        val errorMessage = task.exception?.message ?: "Falha no login"
+                                        println("Erro ao fazer login: $errorMessage") // ou use outro estado para exibir
+                                    }
+                                }
+
+
+
+//                            if(Email == "admin" && Password == "admin") {
+//                                navController.navigate("MainScreen")
+//                            }
                         }
                     )
                 }

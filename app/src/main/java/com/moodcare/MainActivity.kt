@@ -4,14 +4,21 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import com.google.firebase.Firebase
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import com.moodcare.presentation.navigation.Navigation
 import com.moodcare.presentation.theme.MoodCareTheme
 
 class MainActivity : ComponentActivity() {
+
     @RequiresApi(35)
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        FirebaseApp.initializeApp(this)
+
         super.onCreate(savedInstanceState)
-        //enableEdgeToEdge()
+
         setContent {
             MoodCareTheme(theme = "light") {
                 Navigation()
@@ -19,4 +26,5 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 
