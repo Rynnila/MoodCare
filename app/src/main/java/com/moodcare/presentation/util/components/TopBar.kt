@@ -27,7 +27,7 @@ fun TopBar(
 ){
     TopAppBar(
         modifier = Modifier
-            .height(50.dp),
+            .height(70.dp),
         colors = androidx.compose.material3.TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ),

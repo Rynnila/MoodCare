@@ -1,7 +1,6 @@
 package com.moodcare.presentation.screens.main_screen
 
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
@@ -14,12 +13,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.moodcare.presentation.util.components.BottomBar
+import com.moodcare.presentation.util.components.TopBar
 import com.moodcare.presentation.util.components.pager.MainScreenPager
 import com.moodcare.presentation.util.components.pager.NavItem
-import com.moodcare.presentation.util.components.TopBar
 
 @RequiresApi(35)
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(){
     val items = listOf(

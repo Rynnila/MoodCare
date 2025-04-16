@@ -28,7 +28,8 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LoginCard(
-            navController = navController
+            navController = navController,
+            viewModel = LoginViewModel()
         )
     }
 }
