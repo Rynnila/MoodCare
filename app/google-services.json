@@ -9,6 +9,25 @@
       "client_info": {
         "mobilesdk_app_id": "1:620607906667:android:b38ca9c872934c7744e22e",
         "android_client_info": {
+          "package_name": "com.healthapp.emotional"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAonGG2nffA6wUN9UbP0Uy3F9tho6FZfuc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620607906667:android:b38ca9c872934c7744e22e",
+        "android_client_info": {
           "package_name": "com.moodcare"
         }
       },
