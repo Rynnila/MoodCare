@@ -60,7 +60,7 @@ fun ChatScreen(
     val generativeModel = remember {
         GenerativeModel(
             modelName = "gemini-1.5-pro",
-            apiKey = "AIzaSyCjoRhfRRWlvSigMsJnU8NC9oKgR30KXcw"
+            apiKey = "AIzaSyBQJTofBOOzWDIUXSSST7Ly65Amgu7lVus"
         )
     }
 
