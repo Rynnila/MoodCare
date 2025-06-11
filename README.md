@@ -1,8 +1,8 @@
 <div align="center" style="margin-bottom: 10px;">
   <p style="margin: 0;">
-    <img src="https://drive.google.com/uc?id=14QUt8Ov_b-5anNCBCD2wMMYCJWkExq0R" alt="Imagem MoodCare" width="225">
+    <img src="https://drive.google.com/uc?id=1jktQXg_8sQ3zfskh3b0TL13SiSgym5R5" alt="Imagem MoodCare" width="225">
   </p>
-  <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=VT323&size=31&pause=1000&color=CAA2EA&center=true&width=502&lines=Cuidando+de+voc%C3%AA+com+carinho" alt="Typing SVG" /></a>
+  <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Poppins&pause=1000&color=F0068F&center=true&width=435&lines=Cuidando+do+seu+bem-estar!" alt="Typing SVG" /></a>
 </div>
 
 <div align="center" style="margin-top: 5px; margin-bottom: 5px;">
